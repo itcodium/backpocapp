@@ -3,6 +3,7 @@
 module.exports = function(app, passport) {
 var BackPoc     = require('./models/BackPoc');
 var vUsuario     = require('./models/usuario');
+var Notificaciones     = require('./models/notificaciones');
 var vDigitlogin     = require('./login');
 var https = require("https");
 
@@ -41,13 +42,12 @@ app.use(function(req, res, next) {
     });
 
     app.param('id', function(req, res, next, id) {
-        console.log("Param",id);
+        console.log("*** Param ***",id);
          vUsuario.findOne({ 'id_str': id }, function (err, item) {
               if (err) { return next(err); }
               if (!item) { return res.json({error:"No se encontro el usuario para :"+ id});}
               req.item = item;   // posible error
               return next();
-
             }) 
     });
 
@@ -65,13 +65,51 @@ app.use(function(req, res, next) {
     });
 
 
-    app.get('/api/getCentros',isLoggedIn, function(req, res) {
+    app.get('/api/getCentros', function(req, res) {
       BackPoc.find(function (err, collections) {
                       if (err) return next(err);
                         res.json(collections);
                     });
     });
 
+    // Notificaciones
+    app.get('/api/notificaciones', function(req, res) {
+        console.log("*** Notificaciones***");
+      Notificaciones.find(function (err, collections) {
+                      if (err) return next(err);
+                        res.json(collections);
+                    });
+    });
+    app.param('idNotificacion', function(req, res, next, idNotificacion) {
+        console.log("*** Param  idNotificacion***",idNotificacion);
+         Notificaciones.findOne({ '_id': idNotificacion }, function (err, item) {
+              if (err) { return next(err); }
+              if (!item) { return res.json({error:"No se encontro la notificacion."});}
+              req.item = item;   // posible error
+              return next();
+            }) 
+    });
+    app.post('/api/notificaciones', function(req, res,next) {
+          var vNotificaciones = new Notificaciones(req.body);
+          vNotificaciones.save(function(err, post){
+              if(err){ return next(err); }
+              res.json(post);
+            });
+    }); 
+
+    app.put('/api/notificaciones/:idNotificacion', function(req, res) {
+                req.item.titulo=req.body.titulo;
+                req.item.categoria=req.body.categoria;
+                req.item.asunto=req.body.asunto;
+                req.item.texto= req.body.texto;
+
+                req.item.save(function (err) {
+                  if (err) {
+                    console.log(err);
+                  }
+                  return res.send(req.item);
+                });
+    });
   
 };
 
