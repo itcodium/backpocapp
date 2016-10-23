@@ -6,7 +6,7 @@ var NotificaionesSchema = new mongoose.Schema({
     link: String,
     type: {type: Number, default: 0},
     id: {type: Number, default: 0},
-    created : { type : Date, default: Date.now },
+    timestamp : { type :  Number, default: new Date().getTime() },
     category: {type: Number, default: 0},
     inner_id: {type: Number, default: 0},
     read: Boolean
@@ -15,4 +15,4 @@ var NotificaionesSchema = new mongoose.Schema({
 module.exports = mongoose.model('Notificaciones',NotificaionesSchema,'notificaciones');
 
 
-
+ 
