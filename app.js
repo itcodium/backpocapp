@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var flash    = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var debug = require('debug')('flapper-news:server');
+// var debug = require('debug')('flapper-news:server');
 var http = require('http');
 
 
@@ -102,7 +102,7 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  //debug('Listening on ' + bind);
 }
  
 
