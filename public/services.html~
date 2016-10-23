@@ -1,0 +1,12 @@
+<html ng-app="app">
+  <head>
+    <title>My Angular App!</title>
+    <link rel="stylesheet" href="stylesheets/bootstrap.css">
+    <script src="javascripts/angular.js"></script>
+    <script src="javascripts/services.js"></script>
+    <style></style>
+  </head>
+  <body>
+  </body>
+</html>
+
