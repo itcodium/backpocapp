@@ -83,12 +83,13 @@ var https = require("https");
 
     // Notificaciones
     app.get('/api/notificaciones', function(req, res) {
-        console.log("*** Notificaciones***");
-      Notificaciones.find(function (err, collections) {
+      console.log("*** Notificaciones***",req.query);
+      Notificaciones.find(req.query,function (err, collections) {
                       if (err) return next(err);
                         res.json(collections);
                     });
     });
+
     app.param('idNotificacion', function(req, res, next, idNotificacion) {
         console.log("*** Param  idNotificacion***",idNotificacion);
          Notificaciones.findOne({ '_id': idNotificacion }, function (err, item) {
