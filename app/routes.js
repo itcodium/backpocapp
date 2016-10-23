@@ -4,6 +4,7 @@ module.exports = function(app, passport) {
 var BackPoc     = require('./models/BackPoc');
 var vUsuario     = require('./models/usuario');
 var Notificaciones     = require('./models/notificaciones');
+var NotificacionesUsuarios     = require('./models/notificaciones_usuario');
 var vDigitlogin     = require('./login');
 var https = require("https");
 
@@ -119,6 +120,16 @@ var https = require("https");
                   return res.send(req.item);
                 });
     });
+
+    app.post('/api/notificacionesUsuarios', function(req, res) {
+        console.log("req.body",req.body);
+          var vNotificacionesUsuario = new NotificacionesUsuarios(req.body);
+          vNotificacionesUsuario.save(function(err, post){
+              if(err){ return res.json({error:err.message}); }
+              res.json(post);
+            });
+    }); 
+
   
 };
 
