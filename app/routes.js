@@ -12,7 +12,7 @@ var https = require("https");
 
 
     app.get('/notificaciones', function(req, res, next) {
-      res.render('notificaciones', { title: 'Notificaciones' });
+      res.render('notificaciones', { title: 'Notificaciones.' });
     });
 
       app.get('/', function(req, res, next) {
