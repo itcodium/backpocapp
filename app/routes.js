@@ -90,6 +90,19 @@ var https = require("https");
                     });
     });
 
+    app.get('/api/notificaciones/timestamp/gte', function(req, res) {
+      console.log("*** timestamp Notificaciones timestamp***",req.query.timestamp);
+      
+      Notificaciones.find({timestamp: { $gte: req.query.timestamp}},function (err, collections) {
+                      if (err) return next(err);
+                        res.json(collections);
+                    });
+      
+    });
+
+    
+
+
     app.param('idNotificacion', function(req, res, next, idNotificacion) {
         console.log("*** Param  idNotificacion***",idNotificacion);
          Notificaciones.findOne({ '_id': idNotificacion }, function (err, item) {
