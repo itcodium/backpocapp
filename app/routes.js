@@ -10,8 +10,16 @@ var https = require("https");
 
  
 
-    
-app.use(function(req, res, next) {
+
+    app.get('/notificaciones', function(req, res, next) {
+      res.render('notificaciones', { title: '*Express yeah!!' });
+    });
+
+      app.get('/', function(req, res, next) {
+      res.render('index', { title: 'Notificaciones' });
+    });
+
+    app.use(function(req, res, next) {
         var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         console.log('Client IP:', ip);
 
@@ -90,9 +98,10 @@ app.use(function(req, res, next) {
             }) 
     });
     app.post('/api/notificaciones', function(req, res,next) {
+      console.log("req.body",req.body);
           var vNotificaciones = new Notificaciones(req.body);
           vNotificaciones.save(function(err, post){
-              if(err){ return next(err); }
+              if(err){ return res.json({error:err.message}); }
               res.json(post);
             });
     }); 

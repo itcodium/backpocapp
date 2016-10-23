@@ -15,11 +15,8 @@ var http = require('http');
 var app = express();
 
 var modelsDB = require('./app/models/db')
-console.log("modelsDB",modelsDB);
-// Passport -------------------------------------------
 
 
-//var LocalStrategy = require('passport-local').Strategy;
 
 
 // Session -------------------------------------------
@@ -53,6 +50,7 @@ require('./config/passport')(passport,LocalStrategy,User);
 
 var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
+
 var server = http.createServer(app);
 
 console.log("Port",port);

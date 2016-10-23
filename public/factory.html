@@ -14,7 +14,7 @@
 	
   <script type="text/ng-template" id="/todos.html">
     <h1 class="page-header">Factory</h1>	
-	Search: <input type="text" ng-model="search.name">
+	*** Search: <input type="text" ng-model="search.name">
     <ul class="list-group">
       <li class="list-group-item" ng-repeat="todo in todos | filter: search">
         <input type="checkbox" ng-model="todo.completed">{{todo.name}}
