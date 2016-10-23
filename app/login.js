@@ -140,7 +140,7 @@ var DigitsLogin = (function () {
       }
 
       this.buscar_usuario=function(data){
-        this.model.findOne({ 'id': data.id }, '', function (err, item) {
+        this.model.findOne({ 'id_str': data.id }, '', function (err, item) {
           if (err){
            return res.json(_this.login_error(err)); 
           }
