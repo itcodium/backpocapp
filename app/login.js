@@ -124,13 +124,19 @@ var DigitsLogin = (function () {
           this.req.end();
       }
       this.parse_login_res=function(body){
-          //console.log('parse_login_res',body); 
+          var data;
+          try {
+                data=JSON.parse(body)
+            }
+            catch(err) {
+              return res.json(_this.login_error(err)); 
+            }
+
           if(body.indexOf("errors")>-1){
             return res.json(JSON.parse(body));    
           }
-          _this.buscar_usuario(JSON.parse(body))
-          
-        
+
+          _this.buscar_usuario(data)
       }
       this.login_error=function(e){
           console.log('Error');
@@ -140,7 +146,7 @@ var DigitsLogin = (function () {
       }
 
       this.buscar_usuario=function(data){
-        this.model.findOne({ 'id_str': data.id }, '', function (err, item) {
+        this.model.findOne({ 'id_str': data.id_str }, '', function (err, item) {
           if (err){
            return res.json(_this.login_error(err)); 
           }
