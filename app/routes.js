@@ -99,7 +99,7 @@ var https = require("https");
     });
 
     app.param('idNotificacion', function(req, res, next, idNotificacion) {
-        console.log("*** Param  idNotificacion***",idNotificacion);
+        console.log("** * * Param  idNotificacion***",idNotificacion);
          Notificaciones.findOne({ '_id': idNotificacion }, function (err, item) {
               if (err) { return next(err); }
               if (!item) { return res.json({error:"No se encontro la notificacion."});}
