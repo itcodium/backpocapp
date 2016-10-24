@@ -1,12 +1,10 @@
 var mongoose = require('mongoose');
 
-var TodoSchema = new mongoose.Schema({
-  name: String,
-  completed: Boolean,
-  note: String,
-  updated_at: { type: Date, default: Date.now },
+var AppVersionSchema = new mongoose.Schema({
+  name: String
 });
 
-module.exports = mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('AppVersion',AppVersionSchema,'app_version');
 
+ 
 

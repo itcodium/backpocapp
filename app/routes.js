@@ -113,7 +113,9 @@ var https = require("https");
                 c.message.to='/topics'+req.body.category;//'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
                 c.message.notification.title=req.body.title;
                 c.message.notification.body=req.body.description;
+
                 c.send(function(err, response){
+                  console.log("send -> response -> ",response);
                   if (err) {
                        console.log("send -> err",err);
                        res.json({errors:err});
@@ -154,6 +156,8 @@ var https = require("https");
               res.json(post);
             });
     }); 
+
+    
 
   
 };
