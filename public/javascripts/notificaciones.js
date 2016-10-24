@@ -55,9 +55,9 @@ app.config(['$routeProvider', function ($routeProvider) {
 		$scope.notificacion.category=JSON.parse($scope.category).codigo;
 		$scope.notificacion.inner_id=$scope.inner_id.id;
 		*/
-		$scope.notificacion.type=$scope.type.id;
-		$scope.notificacion.category=JSON.parse($scope.category).codigo;
-		$scope.notificacion.inner_id=$scope.inner_id.id;
+		$scope.notificacion.type=$scope.type;
+		$scope.notificacion.category=JSON.parse($scope.category);
+		$scope.notificacion.inner_id=$scope.inner_id;
 		
 		console.log("Save notif",$scope.notificacion);
 		var n = new Notificaciones($scope.notificacion);

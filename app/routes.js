@@ -5,6 +5,7 @@ var BackPoc     = require('./models/BackPoc');
 var vUsuario     = require('./models/usuario');
 var Notificaciones     = require('./models/notificaciones');
 var NotificacionesUsuarios     = require('./models/notificaciones_usuario');
+var AppVersion     = require('./models/apps_versions');
 var vDigitlogin     = require('./login');
 var https = require("https");
 
@@ -108,9 +109,11 @@ var https = require("https");
     });
     app.post('/api/notificaciones', function(req, res,next) {
         try {
+          console.log("send -> response -> ",req.body);
+
                 var vfcm = require('./code/fcm')
                 var c=new vfcm.FcmMan('AIzaSyCaPkK09tHld1r0Wv-2ulDcVfCKwdkRZqQ');
-                c.message.to='/topics'+req.body.category;//'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
+                c.message.to='/topics'+req.body.category.codigo;//'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
                 c.message.notification.title=req.body.title;
                 c.message.notification.body=req.body.description;
 
@@ -156,6 +159,18 @@ var https = require("https");
               res.json(post);
             });
     }); 
+
+
+  app.post('/api/appversion', function(req, res) {
+        console.log("req.body",req.body);
+          var vAppVersion = new AppVersion(req.body);
+          vAppVersion.save(function(err, post){
+              if(err){ return res.json({error:err.message}); }
+              res.json(post);
+            });
+    });
+
+    
 
     
 

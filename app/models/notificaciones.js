@@ -4,11 +4,11 @@ var NotificaionesSchema = new mongoose.Schema({
     title: String,
     description: String,
     link: String,
-    type: {type: Number, default: 0},
+    type: Object,
     id: {type: Number, default: 0},
     timestamp : { type :  Number, default: new Date().getTime() },
-    category: String,
-    inner_id: {type: Number, default: 0},
+    category: Object,
+    inner_id: Object,
     read: Boolean
 });
 

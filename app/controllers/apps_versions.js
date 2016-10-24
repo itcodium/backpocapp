@@ -2,18 +2,24 @@ var mongoose = require('mongoose')
     , async = require('async')
     , AppVersion = mongoose.model('AppVersion')
 
+exports.create = function (req, res) {
+    var data = new AppVersion(req.body)
+        data.save(function(err, data) {
+        if(err ) {
+            throw err
+        } else {
+            res.json(data);
+        }
+}
 
-
+/*
 exports.show = function(req, res){
-    res.jsonp(req.auditoria);
+    console.log("exports.show: ",req.sugar);
+    res.jsonp(req.sugar);
 }
 
 exports.all = function(req, res){
-    if(!UserAuthorization.isAuthorized(req,"","GET","AUDITORIA")){
-        return res.status(401).jsonp({error:"No esta autorizado a realizar esta operacion."});
-    }
-
-    Auditoria.find(function(err, items) {
+    Sugar.find(function(err, items) {
         if (err) {
             res.render('error', {status: 500});
         } else {
@@ -22,33 +28,33 @@ exports.all = function(req, res){
     });
 }
 
-exports.auditoria = function(req, res, next, id){
-    var query = Auditoria.findById(id);
+exports.sugar = function(req, res, next, id){
+    var Sugar = mongoose.model('Sugar')
+    var query = Sugar.findById(id);
     query.exec(function (err, item){
         if (err) { return next(err); }
-        if (!item) { return next(new Error("can't find item auditoria")); }
-        req.auditoria = item;
+        if (!item) { return next(new Error("can't find item")); }
+        req.sugar = item;   // posible error
         return next();
     });
 }
 
-exports.auditoriaFiltro = function(req, res){
-    /*
-    if(!UserAuthorization.isAuthorized(req,"","GET","AUDITORIA")){
-        return res.status(401).jsonp({error:"No esta autorizado a realizar esta operacion."});
-    }
-    */
+exports.update = function(req, res){
+    var sugar = req.sugar
+    sugar = _.extend(sugar, req.body)
+    sugar.save(function(err) {
+        res.jsonp(sugar)
+    })
+}
 
-    var filter= {"aud_fecha_carga": {"$gte": req.desde, "$lte": req.hasta}};
-    filter.aud_institucion = {'$regex': String(req.institucion).replace(/%/g, "")};
-    if(req.estado && req.estado != undefined && req.estado != ""){
-        filter.aud_estado_carga = req.estado;
-    }
-    Auditoria.find(filter,function(err, items) {
+exports.destroy = function(req, res){
+    var sugar = req.sugar
+    sugar.remove(function(err){
         if (err) {
             res.render('error', {status: 500});
         } else {
-            res.jsonp(items);
+            res.jsonp(1);
         }
-    });
+    })
 }
+*/

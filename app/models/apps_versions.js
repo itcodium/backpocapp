@@ -1,10 +1,22 @@
 var mongoose = require('mongoose');
 
 var AppVersionSchema = new mongoose.Schema({
-  name: String
+  version: Object
 });
 
 module.exports = mongoose.model('AppVersion',AppVersionSchema,'app_version');
 
- 
+ /*
 
+{
+  "iOS": {
+   "actual" : "1.1",
+   "estable": "1.0"
+    },
+  "Android": {
+   "actual" : "1.1",
+   "estable": "1.0"
+    }
+}
+
+*/
