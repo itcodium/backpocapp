@@ -110,10 +110,9 @@ var https = require("https");
     app.post('/api/notificaciones', function(req, res,next) {
         try {
           console.log("send -> response -> ",req.body);
-
                 var vfcm = require('./code/fcm')
                 var c=new vfcm.FcmMan('AIzaSyCaPkK09tHld1r0Wv-2ulDcVfCKwdkRZqQ');
-                c.message.to='/topics'+req.body.category.codigo;//'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
+                c.message.to='/topics'+req.body.category; //'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
                 c.message.notification.title=req.body.title;
                 c.message.notification.body=req.body.description;
 
@@ -123,7 +122,15 @@ var https = require("https");
                        console.log("send -> err",err);
                        res.json({errors:err});
                   }else{
-                        var vNotificaciones = new Notificaciones(req.body);
+                         var vNotificaciones = new Notificaciones({
+                              title: req.body.title,
+                              description: req.body.description,
+                              link: req.body.link,
+                              type:req.body.type,
+                              category_str:req.body.category,
+                              category: req.body.category_id,
+                              inner_id: req.body.innerid
+                          });
                             vNotificaciones.save(function(err, post){
                                 if(err){ 
                                   return res.json({errors:err.message}); 
@@ -132,6 +139,7 @@ var https = require("https");
                             });
                     }
                 });
+               
             }
             catch(err) {
               console.log("err",err);
