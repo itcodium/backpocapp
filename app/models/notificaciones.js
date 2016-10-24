@@ -7,7 +7,7 @@ var NotificaionesSchema = new mongoose.Schema({
     type: {type: Number, default: 0},
     id: {type: Number, default: 0},
     timestamp : { type :  Number, default: new Date().getTime() },
-    category: {type: Number, default: 0},
+    category: String,
     inner_id: {type: Number, default: 0},
     read: Boolean
 });

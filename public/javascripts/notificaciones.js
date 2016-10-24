@@ -27,23 +27,20 @@ app.config(['$routeProvider', function ($routeProvider) {
 	$scope.notificaciones = Notificaciones.query();
 
 	$scope.types=[
-					//{"id": "",value: "seleccionar"},
 					{"id": 0,value: "Mensaje"},
 				  	{"id": 1,value: "Link"},
 				  	{"id": 2,value: "Intra app"}]
 
 	$scope.categories=[
-					//{"id": "",value: "seleccionar"},
-					{"id": 0,value: "Informacion sobre el app"},
-				     {"id": 1,value: "Promociones"},
-				     {"id": 2,value: "Noticias"}]			  
+					 {id: 0,value: "Informacion sobre el app",codigo:"/InfoApp"},
+				     {id: 1,value: "Promociones",codigo:"/Promos"},
+				     {id: 2,value: "Noticias",codigo:"/Noticias"}]			  
 
 	$scope.inner_id=[
-					// {"id": "",value: "seleccionar"},
-					 {"id": 0,value: "Inbox"},
-				     {"id": 1,value: "Centros de Atencion"},
-				     {"id": 2,value: "Perfil de Usuario"},
-					 {"id": 3,value: "Acerca de"}]			  
+					 {id: 0,value: "Inbox"},
+				     {id: 1,value: "Centros de Atencion"},
+				     {id: 2,value: "Perfil de Usuario"},
+					 {id: 3,value: "Acerca de"}]			  
 
 
 	//$scope.notificacion = Notificaciones.get({idNotificacion: $routeParams.id });
@@ -52,11 +49,12 @@ app.config(['$routeProvider', function ($routeProvider) {
 	$scope.success={}
 
 	$scope.save = function(){
-		console.log("Save notif",$scope.notificacion);
-		$scope.notificacion.type=$scope.type.id;
-		$scope.notificacion.category=$scope.category.id;
+		console.log("Save $scope.type",$scope.inner_id);
+		$scope.notificacion.type=JSON.parse($scope.type).id;
+		$scope.notificacion.category=JSON.parse($scope.category).codigo;
 		$scope.notificacion.inner_id=$scope.inner_id.id;
-
+		
+		console.log("Save notif",$scope.notificacion);
 		var n = new Notificaciones($scope.notificacion);
 		n.$save(function(a,b){
 			console.log("a",a);
@@ -68,8 +66,11 @@ app.config(['$routeProvider', function ($routeProvider) {
 		  $scope.error={};
 		  $scope.notificaciones.push(a);
 		  $scope.notificacion = {}; // clear textbox
+		
 		  $scope.success.message="Se cargo una notificacion."
+  
 		});
+
    }
 
 /*

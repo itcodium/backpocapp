@@ -146,6 +146,8 @@ var DigitsLogin = (function () {
       }
 
       this.buscar_usuario=function(data){
+        console.log("Data -> ",data);
+        
         this.model.findOne({ 'id_str': data.id_str }, '', function (err, item) {
           if (err){
            return res.json(_this.login_error(err)); 
@@ -158,6 +160,7 @@ var DigitsLogin = (function () {
         })  
       }
       this.guardar_usuario=function(data){
+        console.log("Data -> ",data);
         var model = new this.model({
             "id":  data.id,
             "id_str": data.id_str,

@@ -32,7 +32,7 @@ mmargin-bottom:10px;
         <div class="form-group">
           <label  for="cboType">Tipos</label>
           <select ng-model="type"  id="cboType" class="form-control">
-            <option  ng-repeat="type in types" value="{{type.value}}">{{type.value}}</option>
+            <option  ng-repeat="type in types" value="{{type}}">{{type.value}}</option>
         </select>
         </div>
     </div>
@@ -40,7 +40,7 @@ mmargin-bottom:10px;
          <div class="form-group">
           <label  for="cboCategory">Categoria</label>
           <select ng-model="category" id="cboCategory" class="form-control">
-              <option  ng-repeat="category in categories" value="{{category.value}}">{{category.value}}</option>
+              <option  ng-repeat="category in categories" value="{{category}}">{{category.value}}</option>
           </select>
         </div>
     </div>
@@ -48,7 +48,7 @@ mmargin-bottom:10px;
         <div class="form-group">
           <label  for="cboInnerId">Inner Id</label>
           <select ng-model="innerid" id="cboInnerId" class="form-control">
-              <option  ng-repeat="innerid in inner_id" value="{{innerid.value}}">{{innerid.value}}</option>
+              <option  ng-repeat="innerid in inner_id" value="{{innerid}}">{{innerid.value}}</option>
           </select>
         </div>
     </div>

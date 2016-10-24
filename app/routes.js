@@ -61,16 +61,16 @@ var https = require("https");
     });
 
     app.put('/api/usuarios/:id', function(req, res) {
-                req.item.nombre=req.body.nombre;
-                req.item.apellido=req.body.apellido;
-                req.item.fecha_nacimiento=req.body.fecha_nacimiento;
-                req.item.sexo= req.body.sexo;
-                req.item.save(function (err) {
-                  if (err) {
-                    console.log(err);
-                  }
-                  return res.send(req.item);
-                });
+              req.item.nombre=req.body.nombre;
+              req.item.apellido=req.body.apellido;
+              req.item.fecha_nacimiento=req.body.fecha_nacimiento;
+              req.item.sexo= req.body.sexo;
+              req.item.save(function (err) {
+                if (err) {
+                  console.log(err);
+                }
+                return res.send(req.item);
+              });
     });
 
 
@@ -83,7 +83,6 @@ var https = require("https");
 
     // Notificaciones
     app.get('/api/notificaciones', function(req, res) {
-      console.log("*** Notificaciones***",req.query);
       Notificaciones.find(req.query,function (err, collections) {
                       if (err) return next(err);
                         res.json(collections);
@@ -91,17 +90,12 @@ var https = require("https");
     });
 
     app.get('/api/notificaciones/timestamp/gte', function(req, res) {
-      console.log("*** timestamp Notificaciones timestamp***",req.query.timestamp);
-      
       Notificaciones.find({timestamp: { $gte: req.query.timestamp}},function (err, collections) {
                       if (err) return next(err);
                         res.json(collections);
                     });
       
     });
-
-    
-
 
     app.param('idNotificacion', function(req, res, next, idNotificacion) {
         console.log("*** Param  idNotificacion***",idNotificacion);
@@ -113,12 +107,30 @@ var https = require("https");
             }) 
     });
     app.post('/api/notificaciones', function(req, res,next) {
-      console.log("req.body",req.body);
-          var vNotificaciones = new Notificaciones(req.body);
-          vNotificaciones.save(function(err, post){
-              if(err){ return res.json({error:err.message}); }
-              res.json(post);
-            });
+        try {
+                var vfcm = require('./code/fcm')
+                var c=new vfcm.FcmMan('AIzaSyCaPkK09tHld1r0Wv-2ulDcVfCKwdkRZqQ');
+                c.message.to='/topics'+req.body.category;//'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
+                c.message.notification.title=req.body.title;
+                c.message.notification.body=req.body.description;
+                c.send(function(err, response){
+                  if (err) {
+                       console.log("send -> err",err);
+                       res.json({errors:err});
+                  }else{
+                        var vNotificaciones = new Notificaciones(req.body);
+                            vNotificaciones.save(function(err, post){
+                                if(err){ 
+                                  return res.json({errors:err.message}); 
+                                }
+                                res.json(post);
+                            });
+                    }
+                });
+            }
+            catch(err) {
+              console.log("err",err);
+            }
     }); 
 
     app.put('/api/notificaciones/:idNotificacion', function(req, res) {
@@ -126,7 +138,6 @@ var https = require("https");
                 req.item.categoria=req.body.categoria;
                 req.item.asunto=req.body.asunto;
                 req.item.texto= req.body.texto;
-
                 req.item.save(function (err) {
                   if (err) {
                     console.log(err);
@@ -147,14 +158,10 @@ var https = require("https");
   
 };
 
-// route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on 
     if (req.isAuthenticated())
         return next();
 
-    // if they aren't redirect them to the home page
     res.json({mesage:"No logueado."});
 }
 

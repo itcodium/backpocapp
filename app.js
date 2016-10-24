@@ -15,10 +15,21 @@ var http = require('http');
 var app = express();
 
 var modelsDB = require('./app/models/db')
+/*
+var vfcm = require('./app/code/fcm')
 
-
-
-
+ 
+var c=new vfcm.FcmMan('AIzaSyCaPkK09tHld1r0Wv-2ulDcVfCKwdkRZqQ');
+    c.message.to='/topics/Noticias';//'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
+    //c.message.collapse_key='key'
+    c.message.notification.title='NODE NODENODE  NODE'
+    c.message.notification.body='ONDE ONDE ONDE ONDE ONDE'
+    //c.message.data.my_key= 'my value',
+    //c.message.data.my_another_key= 'my another value'
+    //c.send();
+    console.log("c.message",c.message);
+    */
+ 
 // Session -------------------------------------------
 var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
