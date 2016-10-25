@@ -16,6 +16,9 @@ var https = require("https");
     app.get('/notificaciones', function(req, res, next) {
       res.render('notificaciones', { title: 'Notificaciones.' });
     });
+    app.get('/appversion', function(req, res, next) {
+      res.render('appversion', { title: 'Versiones.' });
+    });
 
       app.get('/', function(req, res, next) {
       res.render('index', { title: 'Notificaciones' });
@@ -115,7 +118,7 @@ var https = require("https");
                 c.message.to='/topics'+req.body.category; //'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
                 c.message.notification.title=req.body.title;
                 c.message.notification.body=req.body.description;
-
+                c.message.data=req.body;
                 c.send(function(err, response){
                   console.log("send -> response -> ",response);
                   if (err) {
@@ -170,12 +173,21 @@ var https = require("https");
 
 
   app.post('/api/appversion', function(req, res) {
-        console.log("req.body",req.body);
-          var vAppVersion = new AppVersion(req.body);
+          console.log("req.body",req.body);
+
+          var vAppVersion = new AppVersion({version: req.body});
           vAppVersion.save(function(err, post){
               if(err){ return res.json({error:err.message}); }
               res.json(post);
             });
+    });
+  app.get('/api/appversion', function(req, res) {
+          console.log("req.query",req.query);
+          AppVersion.find({'version.app':"EPOC"},function(err, post){
+              if(err){ return res.json({error:err.message}); }
+              console.log("post",post);
+              res.json(post);
+          });
     });
 
     

@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 var AppVersionSchema = new mongoose.Schema({
-  version: Object
+  version: Object,
+  app:String
 });
 
 module.exports = mongoose.model('AppVersion',AppVersionSchema,'app_version');

@@ -32,7 +32,7 @@ var FcmMan = (function () {
       };
 
       this.send=function(callback){
-        console.log("send -> this.message -> ",this.message);
+        console.log("** send -> this.message -> ",this.message);
         this.fcm.send(this.message, function(err, response){
             callback(err, response);
         });
