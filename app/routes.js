@@ -184,8 +184,8 @@ var https = require("https");
   app.get('/api/appversion', function(req, res) {
           console.log("req.query",req.query);
           res.json({  "ios": {
-                        "current": 3,
-                        "stable": 2
+                        "current": "1.1",
+                        "stable": "0.1"
                       },
                       "android": {
                         "current": 2,
