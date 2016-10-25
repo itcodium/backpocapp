@@ -183,11 +183,23 @@ var https = require("https");
     });
   app.get('/api/appversion', function(req, res) {
           console.log("req.query",req.query);
-          AppVersion.find({'version.app':"EPOC"},function(err, post){
+          res.json({  "ios": {
+                        "current": 3,
+                        "stable": 2
+                      },
+                      "android": {
+                        "current": 2,
+                        "stable": 1,
+                        "name": "1.1"
+                      }
+                    });
+          /*
+          AppVersion.findOne({'version.app':"EPOC"},function(err, post){
               if(err){ return res.json({error:err.message}); }
               console.log("post",post);
               res.json(post);
           });
+          */
     });
 
     
