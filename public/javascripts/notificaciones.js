@@ -55,6 +55,8 @@ app.config(['$routeProvider', function ($routeProvider) {
 		$scope.notificacion.category=JSON.parse($scope.category).codigo;
 		$scope.notificacion.inner_id=$scope.inner_id.id;
 		*/
+		$scope.message_show=false;
+		$scope.message_show_error=false;
 		$scope.notificacion.type=JSON.parse($scope.type).id;
 		$scope.notificacion.category=JSON.parse($scope.category).codigo;
 		$scope.notificacion.category_id=JSON.parse($scope.category).id;
@@ -67,16 +69,21 @@ app.config(['$routeProvider', function ($routeProvider) {
 			if(a.error){
 				//alert(a.error);
 				$scope.error=a;
+				$scope.message_show_error=true;
+				$timeout(function(){
+             	$scope.message_show_error=false;
+         		}, 5000);
 				return;
 			}
 		  $scope.error={};
 		  $scope.notificaciones.push(a);
-		  // $scope.notificacion = {}; // clear textbox
+		  $scope.notificacion = {}; // clear textbox
 		  $scope.message_show=true;
 		  $scope.success.message="Se cargo una notificacion."
-		   $timeout(function(){
+		  $timeout(function(){
              	$scope.message_show=false;
          	}, 5000);
+		  	
 
   
 		});

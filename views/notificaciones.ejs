@@ -16,7 +16,7 @@ mmargin-bottom:10px;
 </style>
   </head>
 <body ng-controller="NotificacionesController">
-<div class="alert alert-danger" ng-if="error.error">
+<div class="alert alert-danger" ng-if='error.error && message_show_error==true'>
   <strong>Mensaje </strong> {{error.error}}
 </div>
 
@@ -25,7 +25,7 @@ mmargin-bottom:10px;
 </div>
 
 
-<div id="formulario">
+<div id="formulario" style="padding-top:5px;">
   <form>
   <div class="row">
     <div class="col-sm-4">
