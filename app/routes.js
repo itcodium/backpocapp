@@ -212,43 +212,32 @@ var https = require("https");
 
 
     app.get('/api/dashboard', function(req, res) {
-/*
-      var data={
-    downloads: function (tags, parent) {
-      var total = integer(1750, 5390);
-      return total;
-    },
-    os: {
-      iphone: function (tags, parent) {
-        return Math.floor(parent.downloads / tags.integer(1.5, 6));
-      },
-      android: function (tags, parent) {
-        return parent.downloads - this.iphone;
+       
+       function random (low, high) {
+          return Math.random() * (high - low) + low;
       }
-    },
-    gender: {
-          male: function (tags, parent) {
-            return Math.floor(parent.downloads / tags.integer(1.4, 8));
-          },
-          female: function (tags, parent) {
-            return parent.downloads - this.male;
-          }
-    }
-}
 
-{
-  "downloads": data.downloads(),
-  "os": {
-    "iphone": 821,
-    "android": 2464
-  },
-  "gender": {
-    "male": data.gender.male(),
-    "female": data.gender.female()
-  }
-}
-          res.json(data);
-           */   
+      var downloads=random(1, 3)*145680 | 0;
+      var iphone= Math.floor(downloads / random(1, 6)) | 0;
+      var android= downloads-iphone;
+        var male= Math.floor(downloads / random(1, 6)) | 0;
+      var female= downloads-male;
+
+        
+ 
+          var result={
+            "downloads": downloads,
+            "os": {
+              "iphone": iphone,
+              "android": android
+            },
+            "gender": {
+              "male": male,
+              "female": female
+            }
+          }
+          res.json(result);
+        
     });
 
 
