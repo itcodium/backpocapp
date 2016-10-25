@@ -113,19 +113,7 @@ var https = require("https");
     app.post('/api/notificaciones', function(req, res,next) {
         try {
           console.log("send -> response -> ",req.body);
-                var vfcm = require('./code/fcm')
-                var c=new vfcm.FcmMan('AIzaSyCaPkK09tHld1r0Wv-2ulDcVfCKwdkRZqQ');
-                c.message.to='/topics'+req.body.category; //'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
-                c.message.notification.title=req.body.title;
-                c.message.notification.body=req.body.description;
-                c.message.data=req.body;
-                c.send(function(err, response){
-                  console.log("send -> response -> ",response);
-                  if (err) {
-                       console.log("send -> err",err);
-                       res.json({errors:err});
-                  }else{
-                         var vNotificaciones = new Notificaciones({
+                      var vNotificationJson= {
                               title: req.body.title,
                               description: req.body.description,
                               link: req.body.link,
@@ -133,7 +121,21 @@ var https = require("https");
                               category_str:req.body.category,
                               category: req.body.category_id,
                               inner_id: req.body.innerid
-                          });
+                          }
+
+                var vfcm = require('./code/fcm')
+                var c=new vfcm.FcmMan('AIzaSyCaPkK09tHld1r0Wv-2ulDcVfCKwdkRZqQ');
+                c.message.to='/topics'+req.body.category; //'dfwIc-cYK6Y:APA91bFn3JvTLkINJP5G7sQ6cKFXL_jgUaMkZ5qDjgTOvKSxJ9g9TiRY4mcFhPjEo-kzHZnOHG18AVtjSTqtkCEHvibmAW105HSg1Z8_W3KvQ_f0tLwzWw3XO5v8ZnwnlDY13XnUmyff' 
+                c.message.notification.title=req.body.title;
+                c.message.notification.body=req.body.description;
+                c.message.data=vNotificationJson;
+                c.send(function(err, response){
+                  console.log("send -> response -> ",response);
+                  if (err) {
+                       console.log("send -> err",err);
+                       res.json({errors:err});
+                  }else{
+                         var vNotificaciones = new Notificaciones(vNotificationJson);
                             vNotificaciones.save(function(err, post){
                                 if(err){ 
                                   return res.json({errors:err.message}); 
