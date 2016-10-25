@@ -18,8 +18,8 @@ app.config(['$routeProvider', function ($routeProvider) {
 // 
 // Notificaciones
  app.controller('NotificacionesController', 
- 	['$scope', '$routeParams','$location', 'Notificaciones',
- 		function ($scope,$routeParams, $location,Notificaciones) {
+ 	['$scope', '$routeParams','$location','$timeout', 'Notificaciones',
+ 		function ($scope,$routeParams, $location,$timeout,Notificaciones) {
 
 
 	$scope.editing = [];	 
@@ -71,9 +71,13 @@ app.config(['$routeProvider', function ($routeProvider) {
 			}
 		  $scope.error={};
 		  $scope.notificaciones.push(a);
-		//  $scope.notificacion = {}; // clear textbox
-		
+		  // $scope.notificacion = {}; // clear textbox
+		  $scope.message_show=true;
 		  $scope.success.message="Se cargo una notificacion."
+		   $timeout(function(){
+             	$scope.message_show=false;
+         	}, 5000);
+
   
 		});
 
