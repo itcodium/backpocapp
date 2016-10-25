@@ -16,13 +16,6 @@ mmargin-bottom:10px;
 </style>
   </head>
 <body ng-controller="NotificacionesController">
-<div class="alert alert-danger" ng-if='error.error && message_show_error==true'>
-  <strong>Mensaje </strong> {{error.error}}
-</div>
-
-<div class="alert alert-success" ng-if='success.message && message_show==true'>
-  {{success.message}}
-</div>
 
 
 <div id="formulario" style="padding-top:5px;">
@@ -70,6 +63,14 @@ mmargin-bottom:10px;
       <button type="buttom" ng-click="save()"class="btn btn-default">Submit</button>
 
   </div>
+
+<div class="alert alert-danger" ng-if='error.error && message_show_error==true'>
+  <strong>Mensaje </strong> {{error.error}}
+</div>
+
+<div class="alert alert-success" ng-if='success.message && message_show==true'>
+  {{success.message}}
+</div>
 
 
   <div style="display: none" class="checkbox">
