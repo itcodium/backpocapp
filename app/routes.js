@@ -189,7 +189,7 @@ var https = require("https");
                       },
                       "android": {
                         "current": 2,
-                        "stable": 2,
+                        "stable": 1,
                         "name": "1.1"
                       }
                     });
@@ -201,8 +201,56 @@ var https = require("https");
           });
           */
     });
+  app.get('/api/appversion2', function(req, res) {
+          AppVersion.findOne({'version.app':"EPOC"},function(err, post){
+              if(err){ return res.json({error:err.message}); }
+              console.log("post",post.version);
+              res.json(post.version);
+          });
+          
+    });
 
-    
+
+    app.get('/api/dashboard', function(req, res) {
+/*
+      var data={
+    downloads: function (tags, parent) {
+      var total = integer(1750, 5390);
+      return total;
+    },
+    os: {
+      iphone: function (tags, parent) {
+        return Math.floor(parent.downloads / tags.integer(1.5, 6));
+      },
+      android: function (tags, parent) {
+        return parent.downloads - this.iphone;
+      }
+    },
+    gender: {
+          male: function (tags, parent) {
+            return Math.floor(parent.downloads / tags.integer(1.4, 8));
+          },
+          female: function (tags, parent) {
+            return parent.downloads - this.male;
+          }
+    }
+}
+
+{
+  "downloads": data.downloads(),
+  "os": {
+    "iphone": 821,
+    "android": 2464
+  },
+  "gender": {
+    "male": data.gender.male(),
+    "female": data.gender.female()
+  }
+}
+          res.json(data);
+           */   
+    });
+
 
     
 
