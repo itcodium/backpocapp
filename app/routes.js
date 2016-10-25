@@ -189,7 +189,7 @@ var https = require("https");
                       },
                       "android": {
                         "current": 2,
-                        "stable": 1,
+                        "stable": 2,
                         "name": "1.1"
                       }
                     });
